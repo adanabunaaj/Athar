@@ -8,28 +8,36 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#f0f9f9',
-          100: '#d1f0f0',
-          500: '#1a3b3a',
-          600: '#15302f',
-          700: '#112625',
-          800: '#0d1d1c',
-          900: '#081312',
+        // Palestinian Green Family
+        palestine: {
+          green: '#1a5f3f',      // Main Palestinian green
+          'green-light': '#2d8659', // Lighter green
+          'green-dark': '#0f3d26',  // Darker green
+          'green-forest': '#164032', // Forest variation
+          'green-olive': '#6b7c32',  // Olive green variation
         },
-        accent: {
-          gold: '#d4a853',
-          'gold-light': '#e2bb6a',
-          'gold-dark': '#c19642',
+        // Palestinian Red Family  
+        red: {
+          palestine: '#c8102e',      // Main Palestinian red
+          'palestine-light': '#e63946', // Brighter red
+          'palestine-dark': '#a11226',  // Darker red
+          crimson: '#dc143c',        // Crimson variation
+          burgundy: '#800020',       // Deep burgundy
         },
-        secondary: {
-          terracotta: '#c65d32',
-          burgundy: '#8b2635',
-          'burnt-orange': '#b85c2e',
+        // Professional Blacks and Grays
+        dark: {
+          charcoal: '#2c2c2c',      // Professional charcoal
+          slate: '#1e293b',         // Slate dark
+          graphite: '#374151',      // Graphite gray
+          midnight: '#0f172a',      // Very dark
         },
-        neutral: {
-          cream: '#f8f6f3',
-          'warm-gray': '#6b5b5b',
+        // Clean Neutrals
+        clean: {
+          white: '#ffffff',
+          cream: '#fefdf8',
+          'light-gray': '#f8fafc',
+          'warm-gray': '#64748b',
+          'cool-gray': '#94a3b8',
         }
       },
       fontFamily: {
