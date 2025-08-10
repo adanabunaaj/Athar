@@ -36,7 +36,7 @@ export default function HomePage() {
       {/* About Section - New detailed description */}
       <section id="about" className="py-20 bg-neutral-cream">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl font-bold text-primary-500 mb-8">What We're Building</h2>
+          <h2 className="text-4xl font-bold text-primary-500 mb-8">What We&apos;re Building</h2>
           <p className="text-xl text-neutral-warm-gray max-w-4xl mx-auto leading-relaxed">
             A hybrid platform where Palestinian youth can connect with a wider community, 
             receive academic and professional support, and engage in meaningful dialogue 
@@ -172,7 +172,7 @@ export default function HomePage() {
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-4xl font-bold text-white mb-8">The Change We Wish to See</h2>
           <p className="text-xl text-white/90 max-w-4xl mx-auto mb-8">
-            Redefine "success" as shared growth and collective achievement, fostering solidarity, 
+            Redefine success as shared growth and collective achievement, fostering solidarity, 
             resilience, and mutual support. We envision a cultural transformation from individualism 
             to solidarity, where the community uplifts every member.
           </p>
