@@ -8,28 +8,23 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: {
-          50: '#f0f9f9',
-          100: '#d1f0f0',
-          500: '#1a3b3a',
-          600: '#15302f',
-          700: '#112625',
-          800: '#0d1d1c',
-          900: '#081312',
+        // Custom brand colors from your palette
+        brand: {
+          'dark-green': '#001514',
+          'cream': '#FBFFFE', 
+          'orange': '#FD9635',
+          'deep-red': '#6B0504',
         },
-        accent: {
-          gold: '#d4a853',
-          'gold-light': '#e2bb6a',
-          'gold-dark': '#c19642',
-        },
-        secondary: {
-          terracotta: '#c65d32',
-          burgundy: '#8b2635',
-          'burnt-orange': '#b85c2e',
-        },
-        neutral: {
-          cream: '#f8f6f3',
-          'warm-gray': '#6b5b5b',
+        // Extended variations for better design
+        custom: {
+          'green-dark': '#001514',
+          'green-light': '#003a36',
+          'cream-pure': '#FBFFFE',
+          'cream-warm': '#f8f6f3',
+          'orange-bright': '#FD9635',
+          'orange-light': '#ffb366',
+          'red-deep': '#6B0504',
+          'red-light': '#8b1008',
         }
       },
       fontFamily: {
