@@ -49,7 +49,7 @@ const Header = () => {
           {/* CTA Button */}
           <div className="hidden md:flex">
             <Link 
-              href="#how" 
+              href="/join" 
               className="text-white px-6 py-2 rounded-lg font-medium hover:opacity-90 transition-all duration-200"
               style={{ backgroundColor: '#6B0504' }}
             >
@@ -92,7 +92,7 @@ const Header = () => {
                 Vision
               </Link>
               <Link 
-                href="#how" 
+                href="/join" 
                 className="text-white px-6 py-2 rounded-lg font-medium transition-colors duration-200 text-center mt-4"
                 style={{ backgroundColor: '#6B0504' }}
                 onClick={() => setIsMenuOpen(false)}
