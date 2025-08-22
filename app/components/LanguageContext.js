@@ -86,7 +86,7 @@ export const LanguageProvider = ({ children }) => {
       digitalMagazine: 'Digital Magazine',
       magazineDesc: 'Showcasing untold Palestinian stories',
       scholarshipFundraising: 'Scholarship Fundraising',
-      scholarshipDesc: 'Expanding educational access',
+      scholarshipsDesc: 'Expanding educational access',
       
       // Vision Section
       changeWish: 'The Change We Wish to See',
@@ -170,14 +170,15 @@ export const LanguageProvider = ({ children }) => {
       storytellingDesc: 'استخدام الكتابة والتعبير الفني لتسليط الضوء على قصص نجاح غير تقليدية أو غير متداولة.',
 
       // Key Tools Section
-      keyTools: 'الأدوات الرئيسية - كيف نبني مجتمع صدى ؟',
-      mentorship: 'ورشات إرشاد',
-      mentorshipDesc: 'جلسات حول التقديم للجامعات والإرشاد الشخصي.',
+      keyTools: 'الأدوات الرئيسية ؟',
+      keyToolsDesc: 'كيف نبني مجتمع صدى ؟',
+      webinarWorkshops: 'ورشات إرشاد',
+      webinarDesc: 'جلسات حول التقديم للجامعات والإرشاد الشخصي.',
       communityDialogue: 'حوارات',
-      communityDialogueDesc: 'لقاءات ونقاشات مع متحدثين متميزين في مجالاتهم.',
+      communityDiscussions: 'لقاءات ونقاشات مع متحدثين متميزين في مجالاتهم.',
       digitalMagazine: 'المجلة الرقمية',
-      digitalMagazineDesc: 'تسليط الضوء على القصص الفلسطينية غير المتداولة - The Untold Stories.',
-      scholarships: 'منح طلابية',
+      magazineDesc: 'تسليط الضوء على القصص الفلسطينية غير المتداولة - The Untold Stories.',
+      scholarshipFundraising: 'منح طلابية',
       scholarshipsDesc: 'توفير فرص أكبر للتعليم العالي.',
 
       // Vision Section

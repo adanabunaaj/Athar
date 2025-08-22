@@ -47,7 +47,7 @@ export default function JoinPage() {
           to_name: formData.name,
 
           from_name: formData.name,      // use whatever your template expects
-          from_email: formData.email,
+          //from_email: formData.email,
           reply_to: formData.email,
 
           location: formData.location,
