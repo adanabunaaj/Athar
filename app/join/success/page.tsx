@@ -10,7 +10,7 @@ export default function JoinSuccessPage() {
             <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mx-auto mb-4">
               <Mail className="w-8 h-8 text-green-600" />
             </div>
-            <h2 className="text-3xl font-bold text-black">Welcome to Athar!</h2>
+            <h2 className="text-3xl font-bold text-black">Welcome to Saddah!</h2>
             <p className="text-gray-600 mt-2">
               Thank you for joining our community. Check your email for a welcome message!
             </p>

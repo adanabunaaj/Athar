@@ -53,3 +53,7 @@ body {
                       radial-gradient(circle at 80% 20%, rgba(198, 93, 50, 0.1) 0%, transparent 50%);
   }
 }
+
+.font-arabic {
+  font-family: 'Amiri', 'Noto Sans Arabic', 'Cairo', serif;
+}
