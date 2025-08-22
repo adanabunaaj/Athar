@@ -43,13 +43,10 @@ export default function JoinPage() {
         EMAILJS_SERVICE_ID,
         EMAILJS_TEMPLATE_ID,
         {
-          to_email: formData.email,      // recipient
+          to_email: formData.email,
           to_name: formData.name,
-
-          from_name: formData.name,      // use whatever your template expects
-          //from_email: formData.email,
-          reply_to: formData.email,
-
+          from_name: 'Saddah',       // static brand name (improves trust)
+          reply_to: formData.email,  // user address goes here
           location: formData.location,
           age: formData.age,
           profession: formData.profession,
