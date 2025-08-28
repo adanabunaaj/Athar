@@ -1,17 +1,15 @@
-
-
-
 'use client';
 import Link from 'next/link';
 import { Mail, Instagram, Twitter } from 'lucide-react';
-import { useLanguage } from './LanguageContext'; // Adjust import path as needed
+import { useLanguage } from './LanguageContext';
 
 const Footer = () => {
-  const { language, t } = useLanguage();
+  const { language, t, theme } = useLanguage();
 
   return (
     <footer 
-      className={`text-white bg-black ${language === 'ar' ? 'rtl' : 'ltr'}`}
+      className={`text-white ${language === 'ar' ? 'rtl' : 'ltr'}`}
+      style={{ backgroundColor: theme.colors.background.gray[900] } as React.CSSProperties}
       dir={language === 'ar' ? 'rtl' : 'ltr'}
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
@@ -19,47 +17,63 @@ const Footer = () => {
           {/* Brand */}
           <div className="md:col-span-2">
             <div className={`flex items-center mb-4 ${language === 'ar' ? 'space-x-reverse space-x-2' : 'space-x-2'}`}>
-              <div 
-                className="w-8 h-8 rounded-lg flex items-center justify-center"
-                style={{ background: 'linear-gradient(135deg, #6B0504 0%, #FD9635 100%)' }}
-              >
-                <span className="text-white font-bold text-sm">
-                  {language === 'ar' ? 'أ' : 'A'}
-                </span>
-              </div>
+              <img
+                src="/Sada_logo.JPG"
+                alt="Saddah Logo"
+                className="w-8 h-8 rounded-lg object-cover shadow-lg"
+              />
               <span className={`text-2xl font-bold ${language === 'ar' ? 'font-arabic' : ''}`}>
                 {t.title}
               </span>
             </div>
             <p 
-              className={`max-w-md mb-6 ${language === 'ar' ? 'font-arabic text-right' : 'text-left'}`}
-              style={{ color: '#FBFFFE' }}
+              className={`max-w-md mb-6 leading-relaxed ${language === 'ar' ? 'font-arabic text-right' : 'text-left'}`}
+              style={{ color: theme.colors.background.gray[300] } as React.CSSProperties}
             >
               {t.footerDescription}
             </p>
             <div className={`flex ${language === 'ar' ? 'space-x-reverse space-x-4' : 'space-x-4'}`}>
-              <a 
-                href={`mailto:${t.emailAddress}`}
-                className="p-2 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition-colors duration-200"
-                title={t.emailUs}
-              >
-                <Mail className="w-5 h-5" />
-              </a>
-              <a 
-                href="#" 
-                className="p-2 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition-colors duration-200"
-                title={t.followInstagram}
-              >
-                <Instagram className="w-5 h-5" />
-              </a>
-              <a 
-                href="#" 
-                className="p-2 bg-white bg-opacity-10 rounded-lg hover:bg-opacity-20 transition-colors duration-200"
-                title={t.followTwitter}
-              >
-                <Twitter className="w-5 h-5" />
-              </a>
-            </div>
+                <a 
+                  href="mailto:saddah.info@gmail.com"
+                  className="p-2 rounded-lg transition-all duration-200 hover:scale-110"
+                  style={{ 
+                    backgroundColor: `${theme.colors.primary.main}20`,
+                    color: theme.colors.primary.light
+                  } as React.CSSProperties}
+                  title={t.emailUs}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = theme.colors.primary.main;
+                    e.currentTarget.style.color = 'white';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = `${theme.colors.primary.main}20`;
+                    e.currentTarget.style.color = theme.colors.primary.light;
+                  }}
+                >
+                  <Mail className="w-5 h-5" />
+                </a>
+                <a 
+                  href="https://instagram.com/saddah.echo" 
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="p-2 rounded-lg transition-all duration-200 hover:scale-110"
+                  style={{ 
+                    backgroundColor: `${theme.colors.secondary.main}20`,
+                    color: theme.colors.secondary.light
+                  } as React.CSSProperties}
+                  title={t.followInstagram}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.backgroundColor = theme.colors.secondary.main;
+                    e.currentTarget.style.color = 'white';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.backgroundColor = `${theme.colors.secondary.main}20`;
+                    e.currentTarget.style.color = theme.colors.secondary.light;
+                  }}
+                >
+                  <Instagram className="w-5 h-5" />
+                </a>
+              </div>
           </div>
 
           {/* Quick Links */}
@@ -71,8 +85,10 @@ const Footer = () => {
               <li>
                 <Link 
                   href="#why" 
-                  className={`hover:opacity-80 transition-opacity duration-200 ${language === 'ar' ? 'font-arabic' : ''}`}
-                  style={{ color: '#FBFFFE' }}
+                  className={`transition-all duration-200 hover:scale-105 ${language === 'ar' ? 'font-arabic' : ''}`}
+                  style={{ color: theme.colors.background.gray[300] } as React.CSSProperties}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = theme.colors.primary.light)}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = theme.colors.background.gray[300])}
                 >
                   {t.why}
                 </Link>
@@ -80,17 +96,33 @@ const Footer = () => {
               <li>
                 <Link 
                   href="#how" 
-                  className={`hover:opacity-80 transition-opacity duration-200 ${language === 'ar' ? 'font-arabic' : ''}`}
-                  style={{ color: '#FBFFFE' }}
+                  className={`transition-all duration-200 hover:scale-105 ${language === 'ar' ? 'font-arabic' : ''}`}
+                  style={{ color: theme.colors.background.gray[300] } as React.CSSProperties}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = theme.colors.primary.light)}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = theme.colors.background.gray[300])}
                 >
                   {t.how}
+                </Link>
+              </li>
+
+              <li>
+                <Link 
+                  href="#programs" 
+                  className={`transition-all duration-200 hover:scale-105 ${language === 'ar' ? 'font-arabic' : ''}`}
+                  style={{ color: theme.colors.background.gray[300] } as React.CSSProperties}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = theme.colors.primary.light)}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = theme.colors.background.gray[300])}
+                >
+                  {t.programs}
                 </Link>
               </li>
               <li>
                 <Link 
                   href="#vision" 
-                  className={`hover:opacity-80 transition-opacity duration-200 ${language === 'ar' ? 'font-arabic' : ''}`}
-                  style={{ color: '#FBFFFE' }}
+                  className={`transition-all duration-200 hover:scale-105 ${language === 'ar' ? 'font-arabic' : ''}`}
+                  style={{ color: theme.colors.background.gray[300] } as React.CSSProperties}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = theme.colors.primary.light)}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = theme.colors.background.gray[300])}
                 >
                   {t.vision}
                 </Link>
@@ -107,8 +139,10 @@ const Footer = () => {
               <li>
                 <Link 
                   href="/join" 
-                  className={`hover:opacity-80 transition-opacity duration-200 ${language === 'ar' ? 'font-arabic' : ''}`}
-                  style={{ color: '#FBFFFE' }}
+                  className={`transition-all duration-200 hover:scale-105 ${language === 'ar' ? 'font-arabic' : ''}`}
+                  style={{ color: theme.colors.background.gray[300] } as React.CSSProperties}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = theme.colors.secondary.light)}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = theme.colors.background.gray[300])}
                 >
                   {t.joinCommunity}
                 </Link>
@@ -116,8 +150,10 @@ const Footer = () => {
               <li>
                 <Link 
                   href="#" 
-                  className={`hover:opacity-80 transition-opacity duration-200 ${language === 'ar' ? 'font-arabic' : ''}`}
-                  style={{ color: '#FBFFFE' }}
+                  className={`transition-all duration-200 hover:scale-105 ${language === 'ar' ? 'font-arabic' : ''}`}
+                  style={{ color: theme.colors.background.gray[300] } as React.CSSProperties}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = theme.colors.secondary.light)}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = theme.colors.background.gray[300])}
                 >
                   {t.shareStory}
                 </Link>
@@ -125,8 +161,10 @@ const Footer = () => {
               <li>
                 <Link 
                   href="#" 
-                  className={`hover:opacity-80 transition-opacity duration-200 ${language === 'ar' ? 'font-arabic' : ''}`}
-                  style={{ color: '#FBFFFE' }}
+                  className={`transition-all duration-200 hover:scale-105 ${language === 'ar' ? 'font-arabic' : ''}`}
+                  style={{ color: theme.colors.background.gray[300] } as React.CSSProperties}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = theme.colors.secondary.light)}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = theme.colors.background.gray[300])}
                 >
                   {t.volunteer}
                 </Link>
@@ -134,8 +172,10 @@ const Footer = () => {
               <li>
                 <Link 
                   href="#" 
-                  className={`hover:opacity-80 transition-opacity duration-200 ${language === 'ar' ? 'font-arabic' : ''}`}
-                  style={{ color: '#FBFFFE' }}
+                  className={`transition-all duration-200 hover:scale-105 ${language === 'ar' ? 'font-arabic' : ''}`}
+                  style={{ color: theme.colors.background.gray[300] } as React.CSSProperties}
+                  onMouseEnter={(e) => (e.currentTarget.style.color = theme.colors.secondary.light)}
+                  onMouseLeave={(e) => (e.currentTarget.style.color = theme.colors.background.gray[300])}
                 >
                   {t.donate}
                 </Link>
@@ -146,9 +186,9 @@ const Footer = () => {
 
         <div 
           className={`border-t mt-8 pt-8 text-center ${language === 'ar' ? 'font-arabic' : ''}`}
-          style={{ borderColor: 'rgba(251, 255, 254, 0.2)' }}
+          style={{ borderColor: theme.colors.background.gray[700] } as React.CSSProperties}
         >
-          <p style={{ color: '#FBFFFE' }}>
+          <p style={{ color: theme.colors.background.gray[400] } as React.CSSProperties}>
             {t.copyright}
           </p>
         </div>

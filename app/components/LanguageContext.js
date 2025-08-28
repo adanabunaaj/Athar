@@ -96,6 +96,8 @@ export const LanguageProvider = ({ children }) => {
       how: 'How',
       vision: 'Vision',
       joinUs: 'Join Us',
+      programs: 'Programs',
+
       
       // Main Page
       title: 'Saddah',
@@ -147,6 +149,16 @@ export const LanguageProvider = ({ children }) => {
       changeWish: 'The Change We Wish to See',
       visionDescription: 'Redefine success as shared growth and collective achievement, fostering solidarity, resilience, and mutual support. We envision a cultural transformation from individualism to solidarity, where the community uplifts every member.',
       
+      // Programs Section
+      ourPrograms: 'Our Programs',
+      programsDescription: 'Join our most recent programs',
+      collegeApplications: 'College Applications Workshops',
+      collegeApplicationsDesc: 'Comprehensive guidance through the college application process to the US and UK.',
+      joinCollegeProgram: 'Join Program',
+      mentorshipProgram: 'Mentorship Program', 
+      mentorshipProgramDesc: 'Connecting students and young professionals with mentors to guide them with academic and career choices and applications.',
+      applyMentorship: 'Join as a Mentor',
+      
       // Footer
       footerDescription: 'Building a supportive community where Palestinian youth can thrive through collective growth, meaningful dialogue, and shared success.',
       quickLinks: 'Quick Links',
@@ -154,7 +166,7 @@ export const LanguageProvider = ({ children }) => {
       shareStory: 'Share Your Story',
       volunteer: 'Volunteer',
       donate: 'Donate',
-      emailAddress: 'hello@Saddah.org',
+      emailAddress: 'saddah.info@gmail.com',
       emailUs: 'Email Us',
       followInstagram: 'Follow us on Instagram',
       followTwitter: 'Follow us on Twitter',
@@ -189,6 +201,8 @@ export const LanguageProvider = ({ children }) => {
       how: 'كيف',
       vision: 'الرؤية',
       joinUs: 'انضم إلينا',
+      programs: 'البرامج',
+
       
       // Main Page
       title: 'صدى',
@@ -239,13 +253,24 @@ export const LanguageProvider = ({ children }) => {
       changeWish: 'التغيير الذي نريد أن نراه',
       visionDescription: 'تسعى منصة صدى إلى إعادة تعريف معنى النجاح كهدف مجتمعي مشترك، يقوم على النجاح المجتمعي، التضامن، الصمود، والتعاون. نطمح إلى تغيير جذري من الفردانية إلى التضامن، حيث يدعم المجتمع الفرد ويقف الفرد بدوره سندًا لمجتمعه.',
 
+      // Programs Section
+      ourPrograms: 'برامجنا',
+      programsDescription: 'انضم إلى برامجنا',
+      collegeApplications: 'ورشات التقديم للجامعات',
+      collegeApplicationsDesc: 'إرشاد شامل خلال سيرورة التقديم للجامعات في أمريكا وبريطانيا.',
+      joinCollegeProgram: 'انضم للبرنامج',
+      mentorshipProgram: 'برنامج الإرشاد',
+      mentorshipProgramDesc: 'ربط الطلاب والمهنيين الشباب مع مرشدين لدعمهم في اختياراتهم الأكاديمية والمهنية سيرورة التقديم.',
+
+applyMentorship: 'انضم كمرشد',
+
       // Footer
       quickLinks: 'روابط سريعة',
       getInvolved: 'شارك معنا',
       shareStory: 'شارك قصتك',
       volunteer: 'تطوع',
       donate: 'تبرع',
-      emailAddress: 'hello@saddah.org',
+      emailAddress: 'saddah.info@gmail.com',
       emailUs: 'تواصل معنا',
       followInstagram: 'تابعنا على إنستغرام',
       followTwitter: 'تابعنا على تويتر',

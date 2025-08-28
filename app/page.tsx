@@ -20,9 +20,22 @@ export default function HomePage() {
         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent" />
         <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className={`text-5xl lg:text-7xl font-bold text-white mb-6 drop-shadow-lg ${language === 'ar' ? 'font-arabic' : ''}`}>
+            
+
+            <div className="flex justify-center mb-6">
+              <img
+                src="/Sada_logo.JPG"
+                alt="Saddah Logo"
+                className="h-24 lg:h-32 w-24 lg:w-32 object-cover rounded-full drop-shadow-lg"
+              />
+            </div>
+
+            {/* <h1 className={`text-3xl lg:text-4xl font-bold text-white mb-6 drop-shadow-lg ${language === 'ar' ? 'font-arabic' : ''}`}>
               {t.title}
-            </h1>
+            </h1> */}
+
+
+
             <p className={`text-3xl lg:text-4xl font-bold text-white mb-8 max-w-3xl mx-auto drop-shadow-md ${language === 'ar' ? 'font-arabic' : ''}`}>
               {t.subtitle}
             </p>
@@ -352,6 +365,110 @@ export default function HomePage() {
               >
                 {t.storytellingDesc}
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Programs Section */}
+      <section 
+      id="programs"
+        className="py-20"
+        style={{ backgroundColor: theme.colors.background.main } as React.CSSProperties}
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="text-center mb-16">
+            <h2 
+              className={`text-4xl font-bold mb-4 ${language === 'ar' ? 'font-arabic' : ''}`}
+              style={{ color: theme.colors.background.gray[900] } as React.CSSProperties}
+            >
+              {t.ourPrograms}
+            </h2>
+            <p 
+              className={`text-lg ${language === 'ar' ? 'font-arabic' : ''}`}
+              style={{ color: theme.colors.background.gray[600] } as React.CSSProperties}
+            >
+              {t.programsDescription}
+            </p>
+          </div>
+
+          <div className="grid lg:grid-cols-2 gap-8 max-w-4xl mx-auto">
+            {/* College Applications Program */}
+            <div 
+              className="text-center p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border hover:scale-105"
+              style={{ 
+                backgroundColor: theme.colors.background.white,
+                borderColor: theme.colors.background.gray[200]
+              } as React.CSSProperties}
+            >
+              <div 
+                className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg"
+                style={{ backgroundColor: theme.colors.primary.main } as React.CSSProperties}
+              >
+                <BookOpen className="w-10 h-10 text-white" />
+              </div>
+              <h3 
+                className={`text-2xl font-bold mb-4 ${language === 'ar' ? 'font-arabic' : ''}`}
+                style={{ color: theme.colors.background.gray[900] } as React.CSSProperties}
+              >
+                {t.collegeApplications}
+              </h3>
+              <p 
+                className={`mb-6 ${language === 'ar' ? 'font-arabic text-right' : 'text-left'}`}
+                style={{ color: theme.colors.background.gray[600] } as React.CSSProperties}
+              >
+                {t.collegeApplicationsDesc}
+              </p>
+              <a
+                href="https://forms.gle/G6M3Nd8sA25MJ2M48" /* Replace with actual URL */
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                style={{ backgroundColor: theme.colors.primary.main } as React.CSSProperties}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.colors.primary.dark)}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = theme.colors.primary.main)}
+              >
+                {t.joinCollegeProgram}
+              </a>
+            </div>
+
+            {/* Mentorship Program */}
+            <div 
+              className="text-center p-8 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 border hover:scale-105"
+              style={{ 
+                backgroundColor: theme.colors.background.white,
+                borderColor: theme.colors.background.gray[200]
+              } as React.CSSProperties}
+            >
+              <div 
+                className="w-20 h-20 rounded-full flex items-center justify-center mx-auto mb-6 shadow-lg"
+                style={{ backgroundColor: theme.colors.secondary.main } as React.CSSProperties}
+              >
+                <Users className="w-10 h-10 text-white" />
+              </div>
+              <h3 
+                className={`text-2xl font-bold mb-4 ${language === 'ar' ? 'font-arabic' : ''}`}
+                style={{ color: theme.colors.background.gray[900] } as React.CSSProperties}
+              >
+                {t.mentorshipProgram}
+              </h3>
+              <p 
+                className={`mb-6 ${language === 'ar' ? 'font-arabic text-right' : 'text-left'}`}
+                style={{ color: theme.colors.background.gray[600] } as React.CSSProperties}
+              >
+                {t.mentorshipProgramDesc}
+              </p>
+              <a
+                href="https://docs.google.com/forms/d/18a4qoor6tXjXZ5llxehXw7SP-ef3A7t1wjaw702nxVA/edit?usp=drive_web&ouid=116335633880404125036" /* Replace with actual URL */
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-block text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
+                style={{ backgroundColor: theme.colors.secondary.main } as React.CSSProperties}
+                onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.colors.secondary.dark)}
+                onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = theme.colors.secondary.main)}
+              >
+                {t.applyMentorship}
+              </a>
             </div>
           </div>
         </div>
