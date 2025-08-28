@@ -13,6 +13,61 @@ export const useLanguage = () => {
   return context;
 };
 
+// Centralized Theme/Color System
+const theme = {
+  colors: {
+    // Primary Colors
+    primary: {
+      main: '#A3AB4B',      // Your green
+      light: '#B8C066',     // Lighter green
+      dark: '#8E9536',      // Darker green
+      50: '#F5F6F0',        // Very light green tint
+      100: '#E8EBD4',       // Light green tint
+      500: '#A3AB4B',       // Main green
+      700: '#8E9536',       // Dark green
+      900: '#6B7029',       // Very dark green
+    },
+    secondary: {
+      main: '#907F9F',      // Your purple
+      light: '#A896B3',     // Lighter purple
+      dark: '#7A6B8A',      // Darker purple
+      50: '#F3F1F5',        // Very light purple tint
+      100: '#E3DDE8',       // Light purple tint
+      500: '#907F9F',       // Main purple
+      700: '#7A6B8A',       // Dark purple
+      900: '#5C5166',       // Very dark purple
+    },
+    background: {
+      main: '#FEFEF2',      // Your cream yellow
+      white: '#FFFFFF',     // Pure white
+      gray: {
+        50: '#FAFAF8',      // Very light warm gray
+        100: '#F5F5F0',     // Light warm gray
+        200: '#E8E8E0',     // Light gray
+        300: '#D1D1C8',     // Medium light gray
+        400: '#A8A89E',     // Medium gray
+        500: '#7A7A70',     // Dark gray
+        600: '#5C5C54',     // Darker gray
+        700: '#3F3F39',     // Very dark gray
+        800: '#2B2B26',     // Almost black gray
+        900: '#1A1A17',     // Black gray
+      }
+    },
+    accent: {
+      success: '#22C55E',   // Green for success states
+      warning: '#F59E0B',   // Orange for warnings
+      error: '#EF4444',     // Red for errors
+      info: '#3B82F6',      // Blue for info
+    }
+  },
+  gradients: {
+    primary: `linear-gradient(135deg, #A3AB4B 0%, #8E9536 50%, #A3AB4B 100%)`,
+    secondary: `linear-gradient(135deg, #907F9F 0%, #7A6B8A 50%, #907F9F 100%)`,
+    hero: `linear-gradient(135deg, #A3AB4B 0%, #907F9F 50%, #A3AB4B 100%)`,
+    accent: `linear-gradient(135deg, #A3AB4B 0%, #907F9F 100%)`,
+  }
+};
+
 // Language Provider Component
 export const LanguageProvider = ({ children }) => {
   const [language, setLanguage] = useState('en');
@@ -86,7 +141,7 @@ export const LanguageProvider = ({ children }) => {
       digitalMagazine: 'Digital Magazine',
       magazineDesc: 'Showcasing untold Palestinian stories',
       scholarshipFundraising: 'Scholarship Fundraising',
-      scholarshipsDesc: 'Expanding educational access',
+      scholarshipDesc: 'Expanding educational access',
       
       // Vision Section
       changeWish: 'The Change We Wish to See',
@@ -174,19 +229,17 @@ export const LanguageProvider = ({ children }) => {
       keyToolsDesc: 'كيف نبني مجتمع صدى ؟',
       webinarWorkshops: 'ورشات إرشاد',
       webinarDesc: 'جلسات حول التقديم للجامعات والإرشاد الشخصي.',
-      communityDialogue: 'حوارات',
       communityDiscussions: 'لقاءات ونقاشات مع متحدثين متميزين في مجالاتهم.',
       digitalMagazine: 'المجلة الرقمية',
       magazineDesc: 'تسليط الضوء على القصص الفلسطينية غير المتداولة - The Untold Stories.',
       scholarshipFundraising: 'منح طلابية',
-      scholarshipsDesc: 'توفير فرص أكبر للتعليم العالي.',
+      scholarshipDesc: 'توفير فرص أكبر للتعليم العالي.',
 
       // Vision Section
-      visionTitle: 'التغيير الذي نريد أن نراه',
+      changeWish: 'التغيير الذي نريد أن نراه',
       visionDescription: 'تسعى منصة صدى إلى إعادة تعريف معنى النجاح كهدف مجتمعي مشترك، يقوم على النجاح المجتمعي، التضامن، الصمود، والتعاون. نطمح إلى تغيير جذري من الفردانية إلى التضامن، حيث يدعم المجتمع الفرد ويقف الفرد بدوره سندًا لمجتمعه.',
 
       // Footer
-      //footerDescription: 'بناء مجتمع داعم حيث يمكن للشباب الفلسطيني أن يزدهر من خلال النمو الجماعي والحوار الهادف والنجاح المشترك.',
       quickLinks: 'روابط سريعة',
       getInvolved: 'شارك معنا',
       shareStory: 'شارك قصتك',
@@ -220,7 +273,6 @@ export const LanguageProvider = ({ children }) => {
       cancel: 'إلغاء',
       joining: 'جارٍ الانضمام...',
       joinCommunityBtn: 'انضم للمجتمع'
-
     }
   };
 
@@ -230,7 +282,8 @@ export const LanguageProvider = ({ children }) => {
     language,
     toggleLanguage,
     t,
-    isLoaded
+    isLoaded,
+    theme // Add theme to context
   };
 
   return (
