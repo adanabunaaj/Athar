@@ -420,14 +420,13 @@ export default function HomePage() {
                 {t.collegeApplicationsDesc}
               </p>
               <a
-                href="https://forms.gle/G6M3Nd8sA25MJ2M48" /* Replace with actual URL */
-                target="_blank"
-                rel="noopener noreferrer"
+                href='/mentorship'
                 className="inline-block text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
                 style={{ backgroundColor: theme.colors.primary.main } as React.CSSProperties}
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.colors.primary.dark)}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = theme.colors.primary.main)}
               >
+                
                 {t.joinCollegeProgram}
               </a>
             </div>
@@ -458,17 +457,15 @@ export default function HomePage() {
               >
                 {t.mentorshipProgramDesc}
               </p>
-              <a
-                href="https://docs.google.com/forms/d/18a4qoor6tXjXZ5llxehXw7SP-ef3A7t1wjaw702nxVA/edit?usp=drive_web&ouid=116335633880404125036" /* Replace with actual URL */
-                target="_blank"
-                rel="noopener noreferrer"
+              <Link
+                href="/mentorship"
                 className="inline-block text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
                 style={{ backgroundColor: theme.colors.secondary.main } as React.CSSProperties}
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.colors.secondary.dark)}
                 onMouseLeave={(e) => (e.currentTarget.style.backgroundColor = theme.colors.secondary.main)}
               >
                 {t.applyMentorship}
-              </a>
+              </Link>
             </div>
           </div>
         </div>

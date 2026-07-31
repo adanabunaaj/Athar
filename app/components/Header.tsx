@@ -68,7 +68,7 @@ const Header = () => {
           {/* Desktop Navigation */}
           <nav className={`hidden md:flex ${language === 'ar' ? 'space-x-reverse space-x-8' : 'space-x-8'}`}>
             <Link
-              href="#why"
+              href="/#why"
               className="font-medium transition-colors duration-200 hover:scale-105"
               style={{ color: theme.colors.background.gray[600] } as React.CSSProperties}
               onMouseEnter={(e) => (e.currentTarget.style.color = theme.colors.primary.main)}
@@ -77,7 +77,7 @@ const Header = () => {
               {t.why}
             </Link>
             <Link
-              href="#how"
+              href="/#how"
               className="font-medium transition-colors duration-200 hover:scale-105"
               style={{ color: theme.colors.background.gray[600] } as React.CSSProperties}
               onMouseEnter={(e) => (e.currentTarget.style.color = theme.colors.primary.main)}
@@ -87,7 +87,7 @@ const Header = () => {
             </Link>
 
             <Link
-              href="#programs"
+              href="/#programs"
               className="font-medium transition-colors duration-200 hover:scale-105"
               style={{ color: theme.colors.background.gray[600] } as React.CSSProperties}
               onMouseEnter={(e) => (e.currentTarget.style.color = theme.colors.primary.main)}
@@ -96,7 +96,7 @@ const Header = () => {
               {t.programs}
             </Link>
             <Link
-              href="#vision"
+              href="/#vision"
               className="font-medium transition-colors duration-200 hover:scale-105"
               style={{ color: theme.colors.background.gray[600] } as React.CSSProperties}
               onMouseEnter={(e) => (e.currentTarget.style.color = theme.colors.primary.main)}
