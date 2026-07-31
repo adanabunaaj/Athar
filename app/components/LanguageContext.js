@@ -156,7 +156,7 @@ export const LanguageProvider = ({ children }) => {
       collegeApplicationsDesc: 'Comprehensive guidance through the college application process to the US and UK.',
       joinCollegeProgram: 'Join Program',
       mentorshipProgram: 'Mentorship Program', 
-      mentorshipProgramDesc: '1:1 mentorship for Palestinian students applying to universities in the US and UK — running October to December with mentors who have been through it.',
+      mentorshipProgramDesc: '1:1 mentorship for Palestinian students applying to universities in the US and UK.',
       applyMentorship: 'Learn More',
 
       // Mentorship Page
@@ -293,7 +293,7 @@ export const LanguageProvider = ({ children }) => {
       collegeApplicationsDesc: 'إرشاد شامل خلال سيرورة التقديم للجامعات في أمريكا وبريطانيا.',
       joinCollegeProgram: 'انضم للبرنامج',
       mentorshipProgram: 'برنامج الإرشاد',
-      mentorshipProgramDesc: 'إرشاد شخصي 1:1 للطلاب الفلسطينيين المتقدمين للجامعات في أمريكا وبريطانيا — من تشرين الأول حتى كانون الأول مع مرشدين خاضوا التجربة.',
+      mentorshipProgramDesc: 'إرشاد شخصي 1:1 للطلاب الفلسطينيين المتقدمين للجامعات في أمريكا وبريطانيا.',
 
 applyMentorship: 'اعرف المزيد',
 
