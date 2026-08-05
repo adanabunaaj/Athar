@@ -420,7 +420,7 @@ export default function HomePage() {
                 {t.collegeApplicationsDesc}
               </p>
               <a
-                href='/mentorship'
+                href='https://forms.gle/GLEFK4DJf5tysLgt6'
                 className="inline-block text-white px-8 py-3 rounded-lg font-semibold transition-all duration-300 hover:scale-105 hover:shadow-lg"
                 style={{ backgroundColor: theme.colors.primary.main } as React.CSSProperties}
                 onMouseEnter={(e) => (e.currentTarget.style.backgroundColor = theme.colors.primary.dark)}
