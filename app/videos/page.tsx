@@ -1,6 +1,6 @@
 'use client';
 import { useEffect, useState } from 'react';
-import { Lock, Mail, PlayCircle, User, CheckCircle2 } from 'lucide-react';
+import { Lock, Mail, PlayCircle, User, CheckCircle2, ExternalLink } from 'lucide-react';
 import { useLanguage } from '../components/LanguageContext';
 import { VIDEOS, VIDEO_SECTIONS } from '../../lib/videoCatalog';
 
@@ -33,7 +33,6 @@ const STRINGS = {
     checking: 'Opening your library...',
     welcome: 'Welcome back, {name}!',
     welcomeNoName: 'Welcome back!',
-    unlockedText: 'Your personal link opens this page. Please keep it to yourself.',
     expiredLink: 'This link is no longer active. Sign up again or request your link below.',
   },
   ar: {
@@ -62,7 +61,6 @@ const STRINGS = {
     checking: 'جارٍ فتح مكتبتك...',
     welcome: 'أهلاً بعودتك، {name}!',
     welcomeNoName: 'أهلاً بعودتك!',
-    unlockedText: 'رابطك الشخصي هو ما يفتح هذه الصفحة. نرجو عدم مشاركته.',
     expiredLink: 'هذا الرابط لم يعد فعّالاً. سجّل من جديد أو اطلب رابطك أدناه.',
   },
 };
@@ -342,6 +340,23 @@ export default function VideosPage() {
                 </h3>
                 {status === 'unlocked' && <PlayCircle className="w-5 h-5" style={{ color: c.primary.main }} />}
               </div>
+              {status === 'unlocked' && v.links && v.links.length > 0 && (
+                <div className="px-4 pb-4 flex flex-wrap gap-2">
+                  {v.links.map((l) => (
+                    <a
+                      key={l.url}
+                      href={l.url}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className={`inline-flex items-center gap-1.5 text-sm px-3 py-1.5 rounded-full border hover:shadow-sm ${font}`}
+                      style={{ borderColor: c.primary[100], backgroundColor: c.primary[50], color: c.primary[900] }}
+                    >
+                      <ExternalLink className="w-3.5 h-3.5" />
+                      {l.label[lang]}
+                    </a>
+                  ))}
+                </div>
+              )}
             </article>
           ))}
         </div>
@@ -371,7 +386,6 @@ export default function VideosPage() {
               <p className="font-semibold" style={{ color: c.background.gray[900] }}>
                 {viewerName ? s.welcome.replace('{name}', viewerName) : s.welcomeNoName}
               </p>
-              <p className="text-sm" style={{ color: c.background.gray[600] }}>{s.unlockedText}</p>
             </div>
           </div>
         ) : (

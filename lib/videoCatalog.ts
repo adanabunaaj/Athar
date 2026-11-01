@@ -9,10 +9,12 @@ export interface VideoItem {
   file: string;        // object name in R2
   section: VideoSection;
   title: { en: string; ar: string };
+  // Optional resources shown under the video (sheets, docs, websites).
+  links?: { label: { en: string; ar: string }; url: string }[];
 }
 
 export const VIDEO_SECTIONS: { id: VideoSection; title: { en: string; ar: string } }[] = [
-  { id: 'general', title: { en: 'Getting started', ar: 'البداية' } },
+  { id: 'general', title: { en: 'The essentials', ar: 'الأساسيات' } },
   { id: 'us', title: { en: 'Applying to the US', ar: 'التقديم إلى الولايات المتحدة' } },
   { id: 'uk', title: { en: 'Applying to the UK', ar: 'التقديم إلى المملكة المتحدة' } },
 ];
