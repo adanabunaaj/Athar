@@ -21,7 +21,10 @@ function getClient(): AwsClient {
 }
 
 export async function signedVideoUrl(file: string): Promise<string> {
-  const accountId = process.env.R2_ACCOUNT_ID;
+  // Accept either the bare 32-character ID or the full
+  // https://<id>.r2.cloudflarestorage.com address.
+  const rawAccount = process.env.R2_ACCOUNT_ID ?? '';
+  const accountId = rawAccount.match(/[0-9a-f]{32}/i)?.[0] ?? rawAccount.trim();
   const bucket = process.env.R2_BUCKET || 'saddah-videos';
   if (!accountId) throw new Error('R2_ACCOUNT_ID is not set');
 
