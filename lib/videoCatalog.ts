@@ -33,7 +33,11 @@ export const VIDEOS: VideoItem[] = [
   { id: 'interviews', file: '[5]Interviews.mp4', section: 'general',
     title: { en: 'Interviews', ar: 'المقابلات' } },
   { id: 'scholarships', file: '[6]Scholarships.mp4', section: 'general',
-    title: { en: 'Scholarships', ar: 'المنح الدراسية' } },
+    title: { en: 'Scholarships', ar: 'المنح الدراسية' },
+    links: [
+      { label: { en: 'Scholarships sheet', ar: 'جدول المنح الدراسية' },
+        url: 'https://docs.google.com/spreadsheets/d/1ebmWxwg8R583oc2H51ZZZffL81vphzvD3nLiy-3hbxM/edit?gid=1343678355#gid=1343678355' },
+    ] },
   { id: 'common-app', file: '[0]Common_App.mp4', section: 'us',
     title: { en: 'The Common App', ar: 'منصة Common App' } },
   { id: 'grades-sat-english', file: '[1]Grades_SAT_Eng.mp4', section: 'us',
