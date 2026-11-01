@@ -33,6 +33,8 @@ export async function POST(req: Request) {
       lang,
       source: 'Videos',
       linkBase: `${siteUrl()}/videos`,
+      country: req.headers.get('x-vercel-ip-country') || '',
+      from: String(body.from ?? '').slice(0, 60),
     });
     if (!r.ok) throw new Error(String(r.error ?? 'sheet_error'));
     return NextResponse.json({ ok: true });

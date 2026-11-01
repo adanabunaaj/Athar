@@ -5,14 +5,24 @@
  * (Extensions > Apps Script), run `setup` once, then deploy as a Web app.
  * Full steps: VIDEOS_SETUP.md in the website repo.
  *
- * Signups tab columns:
- *   A Date | B Name | C Email | D Source | E Language | F Key | G Active | H Last email sent
+ * Tabs:
+ *   Signups      one row per student (A Date ... G Active ... J Came from)
+ *   Visits       one row per visit to the Videos page
+ *   Video views  one row per step watched (Started, 25%, 50%, 75%, Finished)
+ *   Summary      totals, filled in by formulas
  * To switch off someone's link, change their "Active" cell to "No".
+ * After pasting a new version: run `setup` again, then Deploy > Manage deployments >
+ * edit > Version: New version > Deploy.
  */
 
 var SIGNUPS_SHEET = 'Signups';
-var HEADERS = ['Date', 'Name', 'Email', 'Source', 'Language', 'Key', 'Active', 'Last email sent'];
-var COL = { date: 1, name: 2, email: 3, source: 4, lang: 5, key: 6, active: 7, lastEmail: 8 };
+var VISITS_SHEET = 'Visits';
+var VIEWS_SHEET = 'Video views';
+var SUMMARY_SHEET = 'Summary';
+var HEADERS = ['Date', 'Name', 'Email', 'Source', 'Language', 'Key', 'Active', 'Last email sent', 'Country', 'Came from'];
+var VISIT_HEADERS = ['Date', 'Came from', 'Country', 'Language', 'Signed up', 'Name', 'Email'];
+var VIEW_HEADERS = ['Date', 'Name', 'Email', 'Video', 'Step', 'Key'];
+var COL = { date: 1, name: 2, email: 3, source: 4, lang: 5, key: 6, active: 7, lastEmail: 8, country: 9, from: 10 };
 var RESEND_COOLDOWN_MINUTES = 10;
 
 /** Run once from the editor. Creates the Signups tab and the shared secret. */
@@ -23,6 +33,10 @@ function setup() {
   sheet.setFrozenRows(1);
   var rule = SpreadsheetApp.newDataValidation().requireValueInList(['Yes', 'No'], true).build();
   sheet.getRange(2, COL.active, sheet.getMaxRows() - 1, 1).setDataValidation(rule);
+
+  headerTab_(ss, VISITS_SHEET, VISIT_HEADERS);
+  headerTab_(ss, VIEWS_SHEET, VIEW_HEADERS);
+  buildSummary_(ss);
 
   var props = PropertiesService.getScriptProperties();
   var secret = props.getProperty('SECRET');
@@ -49,6 +63,8 @@ function doPost(e) {
       case 'signup': return json_(signup_(req));
       case 'resend': return json_(resend_(req));
       case 'check':  return json_(check_(req));
+      case 'visit':  return json_(visit_(req));
+      case 'view':   return json_(view_(req));
       default:       return json_({ ok: false, error: 'unknown_action' });
     }
   } catch (err) {
@@ -68,7 +84,8 @@ function signup_(req) {
       return { ok: true, existing: true };
     }
     var key = Utilities.getUuid().replace(/-/g, '');
-    sheet.appendRow([new Date(), req.name, req.email, req.source || 'Videos', req.lang || 'en', key, 'Yes', '']);
+    sheet.appendRow([new Date(), req.name, req.email, req.source || 'Videos', req.lang || 'en', key, 'Yes', '',
+                     req.country || '', req.from || '']);
     var newRow = sheet.getLastRow();
     maybeSendLink_(sheet, newRow, req.lang, req.linkBase);
     return { ok: true, existing: false };
@@ -91,6 +108,87 @@ function check_(req) {
   var active = String(sheet.getRange(row, COL.active).getValue()).trim().toLowerCase();
   var valid = active !== 'no';
   return { ok: true, valid: valid, name: valid ? String(sheet.getRange(row, COL.name).getValue()) : '' };
+}
+
+/** A visit to the Videos page. Name/email are filled in only for signed-up visitors. */
+function visit_(req) {
+  var who = activePerson_(req.key);
+  tab_(VISITS_SHEET).appendRow([new Date(), req.from || 'Direct / unknown', req.country || '', req.lang || 'en',
+                               who ? 'Yes' : 'No', who ? who.name : '', who ? who.email : '']);
+  return { ok: true };
+}
+
+/** One step of watching a video (Started, 25%, 50%, 75%, Finished). */
+function view_(req) {
+  var who = activePerson_(req.key);
+  if (!who) return { ok: true };
+  tab_(VIEWS_SHEET).appendRow([new Date(), who.name, who.email, req.video, req.event, req.key]);
+  return { ok: true };
+}
+
+function activePerson_(key) {
+  if (!key) return null;
+  var sheet = signupsSheet_();
+  var row = findRow_(sheet, COL.key, key);
+  if (!row) return null;
+  var v = sheet.getRange(row, 1, 1, COL.active).getValues()[0];
+  if (String(v[COL.active - 1]).trim().toLowerCase() === 'no') return null;
+  return { name: String(v[COL.name - 1]), email: String(v[COL.email - 1]) };
+}
+
+function headerTab_(ss, name, headers) {
+  var sheet = ss.getSheetByName(name) || ss.insertSheet(name);
+  sheet.getRange(1, 1, 1, headers.length).setValues([headers]).setFontWeight('bold');
+  sheet.setFrozenRows(1);
+  return sheet;
+}
+
+function tab_(name) {
+  var sheet = SpreadsheetApp.getActiveSpreadsheet().getSheetByName(name);
+  if (!sheet) throw new Error(name + ' tab missing: run setup()');
+  return sheet;
+}
+
+/** (Re)builds the Summary tab. Everything here is formulas, so it updates by itself. */
+function buildSummary_(ss) {
+  var sh = ss.getSheetByName(SUMMARY_SHEET) || ss.insertSheet(SUMMARY_SHEET, 0);
+  sh.clear();
+  var V = "'" + VIEWS_SHEET + "'";
+  var rows = [
+    ['Saddah video library: summary', ''],
+    ['', ''],
+    ['Total signups', '=COUNTA(Signups!C2:C)'],
+    ['Signups in the last 7 days', '=COUNTIF(Signups!A2:A,">="&(TODAY()-7))'],
+    ['Visits to the Videos page', '=COUNTA(Visits!A2:A)'],
+    ['Visits in the last 7 days', '=COUNTIF(Visits!A2:A,">="&(TODAY()-7))'],
+    ['Students who started at least one video', '=IFERROR(COUNTUNIQUE(FILTER(' + V + '!C2:C,' + V + '!E2:E="Started")),0)'],
+    ['Students who finished at least one video', '=IFERROR(COUNTUNIQUE(FILTER(' + V + '!C2:C,' + V + '!E2:E="Finished")),0)']
+  ];
+  sh.getRange(1, 1, rows.length, 2).setValues(rows);
+  sh.getRange('A1').setFontWeight('bold').setFontSize(14);
+
+  sh.getRange('A10').setValue('Visits by source').setFontWeight('bold');
+  sh.getRange('A11').setFormula('=IFERROR(QUERY(Visits!A1:G,"select B, count(A) where A is not null group by B order by count(A) desc label B \'Came from\', count(A) \'Visits\'",1),"No visits yet")');
+
+  sh.getRange('D10').setValue('Signups by source').setFontWeight('bold');
+  sh.getRange('D11').setFormula('=IFERROR(QUERY(Signups!A1:J,"select J, count(A) where A is not null group by J order by count(A) desc label J \'Came from\', count(A) \'Signups\'",1),"No signups yet")');
+
+  sh.getRange('G10').setValue('Video views (number of students reaching each step)').setFontWeight('bold');
+  sh.getRange('G11:L11').setValues([['Video', 'Started', '25%', '50%', '75%', 'Finished']]).setFontWeight('bold');
+  sh.getRange('G12').setFormula('=IFERROR(SORT(UNIQUE(FILTER(' + V + '!D2:D,' + V + '!D2:D<>""))),"")');
+  // Counts each student once per video and step, even if they watched it several times.
+  var formulas = [];
+  for (var r = 12; r < 42; r++) {
+    var row = [];
+    for (var c = 0; c < 5; c++) {
+      var col = String.fromCharCode(72 + c); // H..L
+      row.push('=IF($G' + r + '="","",COUNTUNIQUEIFS(' + V + '!$C$2:$C,' + V + '!$D$2:$D,$G' + r + ',' + V + '!$E$2:$E,' + col + '$11))');
+    }
+    formulas.push(row);
+  }
+  sh.getRange(12, 8, 30, 5).setFormulas(formulas);
+  sh.setColumnWidth(1, 300);
+  sh.setColumnWidth(7, 260);
 }
 
 /** Emails the personal link, at most once per cooldown period per person. */

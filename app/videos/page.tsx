@@ -1,5 +1,5 @@
 'use client';
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { Lock, Mail, PlayCircle, User, CheckCircle2, ExternalLink } from 'lucide-react';
 import { useLanguage } from '../components/LanguageContext';
 import { VIDEOS, VIDEO_SECTIONS } from '../../lib/videoCatalog';
@@ -65,6 +65,39 @@ const STRINGS = {
   },
 };
 
+
+// Where did this visitor come from? A ?from=... tag on the link wins,
+// otherwise we guess from the previous site.
+function detectSource(): string {
+  const tag = new URLSearchParams(window.location.search).get('from');
+  if (tag) return tag.slice(0, 40);
+  let host = '';
+  try { host = document.referrer ? new URL(document.referrer).hostname : ''; } catch { /* ignore */ }
+  if (!host) return 'Direct / unknown';
+  if (host === window.location.hostname) return 'Saddah website';
+  const known: [RegExp, string][] = [
+    [/instagram/, 'Instagram'], [/whatsapp|wa\.me/, 'WhatsApp'], [/facebook|fb\./, 'Facebook'],
+    [/t\.co$|twitter|x\.com/, 'X / Twitter'], [/linkedin|lnkd/, 'LinkedIn'], [/google\./, 'Google'],
+    [/mail\.|outlook/, 'Email'], [/t\.me|telegram/, 'Telegram'],
+  ];
+  for (const [re, label] of known) if (re.test(host)) return label;
+  return host.replace(/^www\./, '');
+}
+
+// Fire-and-forget analytics. Never blocks or breaks the page.
+function sendTrack(payload: Record<string, unknown>) {
+  try {
+    const body = JSON.stringify(payload);
+    if (navigator.sendBeacon) {
+      navigator.sendBeacon('/api/videos/track', new Blob([body], { type: 'application/json' }));
+    } else {
+      fetch('/api/videos/track', { method: 'POST', body, keepalive: true, headers: { 'Content-Type': 'application/json' } });
+    }
+  } catch { /* ignore */ }
+}
+
+const PROGRESS_STEPS: [number, string][] = [[0.25, '25%'], [0.5, '50%'], [0.75, '75%'], [0.95, 'Finished']];
+
 type Status = 'checking' | 'locked' | 'unlocked';
 type FormMode = 'signup' | 'sent' | 'resend' | 'resent';
 
@@ -86,11 +119,20 @@ export default function VideosPage() {
   const [busy, setBusy] = useState(false);
   const [error, setError] = useState<string | null>(null);
 
+  const keyRef = useRef<string | null>(null);
+  const sourceRef = useRef('Direct / unknown');
+  const trackedRef = useRef<Set<string>>(new Set());
+  const langRef = useRef(lang);
+  langRef.current = lang;
+
   // On load: use the key from the email link (or one saved from an earlier visit).
   useEffect(() => {
     const params = new URLSearchParams(window.location.search);
     const fromUrl = params.get('key');
     let key: string | null = fromUrl;
+    sourceRef.current = detectSource();
+    const visit = (unlocked: boolean) =>
+      sendTrack({ type: 'visit', from: sourceRef.current, lang: langRef.current, key: unlocked ? key : null });
     try {
       if (fromUrl) {
         localStorage.setItem(KEY_STORAGE, fromUrl);
@@ -104,6 +146,7 @@ export default function VideosPage() {
 
     if (!key) {
       setStatus('locked');
+      visit(false);
       return;
     }
 
@@ -115,14 +158,31 @@ export default function VideosPage() {
         for (const v of data.videos as { id: string; url: string }[]) map[v.id] = v.url;
         setUrls(map);
         setViewerName(data.name || '');
+        keyRef.current = key;
         setStatus('unlocked');
+        visit(true);
       })
       .catch((err: Error) => {
         // Keep the saved key: if the link is switched back on, the page unlocks again.
         if (err.message === '401') setLinkWasInvalid(true);
         setStatus('locked');
+        visit(false);
       });
   }, []);
+
+  // Records each step (Started, 25%, ... Finished) once per video per visit.
+  const trackView = (videoId: string, event: string) => {
+    const id = `${videoId}:${event}`;
+    if (!keyRef.current || trackedRef.current.has(id)) return;
+    trackedRef.current.add(id);
+    sendTrack({ type: 'view', key: keyRef.current, video: videoId, event });
+  };
+
+  const onProgress = (videoId: string, el: HTMLVideoElement) => {
+    if (!el.duration || !isFinite(el.duration)) return;
+    const frac = el.currentTime / el.duration;
+    for (const [step, label] of PROGRESS_STEPS) if (frac >= step) trackView(videoId, label);
+  };
 
   const post = async (path: string, payload: Record<string, unknown>) => {
     const res = await fetch(path, {
@@ -144,7 +204,7 @@ export default function VideosPage() {
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(email.trim())) return setError(s.errorEmail);
     setBusy(true);
     try {
-      await post('/api/videos/signup', { name, email, lang, website });
+      await post('/api/videos/signup', { name, email, lang, website, from: sourceRef.current });
       setMode('sent');
     } catch (err) {
       setError(errorText((err as Error).message));
@@ -316,6 +376,9 @@ export default function VideosPage() {
                   preload="metadata"
                   controlsList="nodownload"
                   onContextMenu={(e) => e.preventDefault()}
+                  onPlay={() => trackView(v.id, 'Started')}
+                  onTimeUpdate={(e) => onProgress(v.id, e.currentTarget)}
+                  onEnded={() => trackView(v.id, 'Finished')}
                   src={`${urls[v.id]}#t=1`}
                 />
               ) : (
