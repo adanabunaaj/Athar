@@ -35,11 +35,14 @@ export async function callSheet(action: string, data: Record<string, unknown>): 
 // Key checks happen on every visit, so remember answers for a few minutes.
 // A key switched off in the sheet stops working within KEY_CACHE_MS.
 const KEY_CACHE_MS = 5 * 60 * 1000;
+const INVALID_CACHE_MS = 30 * 1000;
 const keyCache = new Map<string, { valid: boolean; name: string; at: number }>();
 
 export async function checkKey(key: string): Promise<{ valid: boolean; name: string }> {
+  // Remember "valid" for a few minutes, but "not valid" only briefly,
+  // so a link switched back on works again quickly.
   const hit = keyCache.get(key);
-  if (hit && Date.now() - hit.at < KEY_CACHE_MS) return hit;
+  if (hit && Date.now() - hit.at < (hit.valid ? KEY_CACHE_MS : INVALID_CACHE_MS)) return hit;
 
   const r = await callSheet('check', { key });
   const entry = { valid: r.ok === true && r.valid === true, name: String(r.name ?? ''), at: Date.now() };

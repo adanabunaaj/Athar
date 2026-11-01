@@ -120,10 +120,8 @@ export default function VideosPage() {
         setStatus('unlocked');
       })
       .catch((err: Error) => {
-        if (err.message === '401') {
-          try { localStorage.removeItem(KEY_STORAGE); } catch { /* ignore */ }
-          if (fromUrl) setLinkWasInvalid(true);
-        }
+        // Keep the saved key: if the link is switched back on, the page unlocks again.
+        if (err.message === '401') setLinkWasInvalid(true);
         setStatus('locked');
       });
   }, []);
