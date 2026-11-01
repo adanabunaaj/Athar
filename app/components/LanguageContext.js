@@ -97,6 +97,7 @@ export const LanguageProvider = ({ children }) => {
       vision: 'Vision',
       joinUs: 'Join Us',
       programs: 'Programs',
+      videos: 'Videos',
 
       
       // Main Page
@@ -235,6 +236,7 @@ export const LanguageProvider = ({ children }) => {
       vision: 'الرؤية',
       joinUs: 'انضم إلينا',
       programs: 'البرامج',
+      videos: 'الفيديوهات',
 
       
       // Main Page

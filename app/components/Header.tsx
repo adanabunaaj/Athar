@@ -96,6 +96,15 @@ const Header = () => {
               {t.programs}
             </Link>
             <Link
+              href="/videos"
+              className="font-medium transition-colors duration-200 hover:scale-105"
+              style={{ color: theme.colors.background.gray[600] } as React.CSSProperties}
+              onMouseEnter={(e) => (e.currentTarget.style.color = theme.colors.primary.main)}
+              onMouseLeave={(e) => (e.currentTarget.style.color = theme.colors.background.gray[600])}
+            >
+              {t.videos}
+            </Link>
+            <Link
               href="/#vision"
               className="font-medium transition-colors duration-200 hover:scale-105"
               style={{ color: theme.colors.background.gray[600] } as React.CSSProperties}
@@ -195,6 +204,16 @@ const Header = () => {
                 {t.programs}
               </Link>
 
+              <Link
+                href="/videos"
+                className="font-medium transition-colors duration-200"
+                style={{ color: theme.colors.background.gray[600] } as React.CSSProperties}
+                onClick={() => setIsMenuOpen(false)}
+                onMouseEnter={(e) => (e.currentTarget.style.color = theme.colors.primary.main)}
+                onMouseLeave={(e) => (e.currentTarget.style.color = theme.colors.background.gray[600])}
+              >
+                {t.videos}
+              </Link>
               <Link
                 href="#vision"
                 className="font-medium transition-colors duration-200"
