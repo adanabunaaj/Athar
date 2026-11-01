@@ -52,5 +52,9 @@ export function isValidEmail(email: string): boolean {
 }
 
 export function siteUrl(): string {
+  // On Vercel preview deployments, email links point back to the preview itself.
+  if (process.env.VERCEL_ENV === 'preview' && process.env.VERCEL_BRANCH_URL) {
+    return `https://${process.env.VERCEL_BRANCH_URL}`;
+  }
   return (process.env.SITE_URL || 'https://saddah.vercel.app').replace(/\/$/, '');
 }
